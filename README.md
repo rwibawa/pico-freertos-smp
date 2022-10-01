@@ -32,7 +32,7 @@ $ export FREERTOS_KERNEL_PATH=~/workspace_pico/pico-freertos-smp/lib/FreeRTOS-Ke
 $ cp $PICO_SDK_PATH/external/pico_sdk_import.cmake ./
 
 # import FreeRTOS-SMP
-$ cp lib/FreeRTOS-Kernel/portable/ThirdParty/GCC/RP2040/FreeRTOS_Kernel_import.cmake
+$ cp lib/FreeRTOS-Kernel/portable/ThirdParty/GCC/RP2040/FreeRTOS_Kernel_import.cmake ./
 ```
 
 ## 2. Build the solution
@@ -48,6 +48,29 @@ $ cmake --version
 cmake version 3.24.2
 
 $ cmake -G "MSYS Makefiles" -DCMAKE_BUILD_TYPE=Debug ..
+Using PICO_SDK_PATH from environment ('C:/msys64/home/WRY/workspace_pico/pico-sdk')
+PICO_SDK_PATH is C:/msys64/home/WRY/workspace_pico/pico-sdk
+Using PICO_PLATFORM from environment ('rp2040')
+Defaulting PICO platform compiler to pico_arm_gcc since not specified.       
+PICO compiler is pico_arm_gcc
+-- The C compiler identification is GNU 12.2.0
+-- The CXX compiler identification is GNU 12.2.0
+-- The ASM compiler identification is GNU
+-- Found assembler: C:/Program Files (x86)/Arm GNU Toolchain arm-none-eabi/12.2 mpacbti-bet1/bin/arm-none-eabi-gcc.exe
+Build type is Debug
+Using regular optimized debug build (set PICO_DEOPTIMIZED_DEBUG=1 to de-optimize)
+Defaulting PICO target board to pico since not specified.
+Using board configuration from C:/msys64/home/WRY/workspace_pico/pico-sdk/src/boards/include/boards/pico.h
+-- Found Python3: C:/msys64/mingw64/bin/python3.10.exe (found version "3.10.7") found components: Interpreter
+TinyUSB available at C:/msys64/home/WRY/workspace_pico/pico-sdk/lib/tinyusb/src/portable/raspberrypi/rp2040; enabling build support for USB.
+Compiling TinyUSB with CFG_TUSB_DEBUG=1
+cyw43-driver available at C:/msys64/home/WRY/workspace_pico/pico-sdk/lib/cyw43-driver
+lwIP available at C:/msys64/home/WRY/workspace_pico/pico-sdk/lib/lwip
+Using FREERTOS_KERNEL_PATH from environment ('C:/msys64/home/WRY/workspace_pico/pico-freertos-smp/lib/FreeRTOS-Kernel')
+-- Configuring done
+-- Generating done
+-- Build files have been written to: C:/msys64/home/WRY/workspace_pico/pico-freertos-smp/build
+
 $ make -j8
 
 # gdb-server
