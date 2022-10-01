@@ -1,13 +1,12 @@
 /***
  * Demo program to use FreeRTOS SMP on Both Cores
  * Blink on Core 0 to GPIO 15
- * Blink on Core 1 to GPIO 18
+ * Blink on Core 1 to GPIO 16
  * Counter showing on GPIO 18 to 21, using Core 1
  * Instructions sent to Counter from Main Task on Core 0
  * Jon Durrant
  * 15-Aug-2022
  */
-
 
 #include "pico/stdlib.h"
 
@@ -22,27 +21,25 @@
 
 
 //Standard Task priority
-#define TASK_PRIORITY		( tskIDLE_PRIORITY + 1UL )
+#define TASK_PRIORITY ( tskIDLE_PRIORITY + 1UL )
 
 //LED PAD to use
-#define LED_PAD					15
-#define LED1_PAD				18
-#define LED2_PAD				19
-#define LED3_PAD				20
-#define LED4_PAD				21
-#define LED5_PAD			   16
-
+#define LED_PAD		15
+#define LED1_PAD	18
+#define LED2_PAD	19
+#define LED3_PAD	20
+#define LED4_PAD	21
+#define LED5_PAD	15
 
 
 /***
  * Main task to blink external LED
  * @param params - unused
  */
-void mainTask(void *params){
+void mainTask(void *params) {
 	BlinkAgent blink(LED_PAD);
 	BlinkAgent blink1(LED5_PAD);
 	CounterAgent counter(LED1_PAD, LED2_PAD, LED3_PAD, LED4_PAD);
-
 
 	printf("Main task started\n");
 
@@ -59,7 +56,6 @@ void mainTask(void *params){
 	coreMask = 0x1;
 	vTaskCoreAffinitySet( blink.getTask(), coreMask );
 
-
 	while (true) { // Loop forever
 		printf("Main on Core %ld\n",sio_hw->cpuid);
 
@@ -69,20 +65,16 @@ void mainTask(void *params){
 	}
 }
 
-
-
-
 /***
  * Launch the tasks and scheduler
  */
 void vLaunch( void) {
-
 	//Start blink task
-    TaskHandle_t task;
-    xTaskCreate(mainTask, "MainThread", 500, NULL, TASK_PRIORITY, &task);
+	TaskHandle_t task;
+	xTaskCreate(mainTask, "MainThread", 500, NULL, TASK_PRIORITY, &task);
 
-    /* Start the tasks and timer running. */
-    vTaskStartScheduler();
+	/* Start the tasks and timer running. */
+	vTaskStartScheduler();
 }
 
 /***
@@ -92,27 +84,26 @@ void vLaunch( void) {
 int main( void )
 {
 	//Setup serial over USB and give a few seconds to settle before we start
-    stdio_init_all();
-    sleep_ms(2000);
-    printf("GO\n");
+	stdio_init_all();
+	sleep_ms(2000);
+	printf("GO\n");
 
-    //Start tasks and scheduler
+	//Start tasks and scheduler
 
-    const char *rtos_name;
+	const char *rtos_name;
 #if ( portSUPPORT_SMP == 1 )
-    rtos_name = "FreeRTOS SMP";
+	rtos_name = "FreeRTOS SMP";
 #else
-    rtos_name = "FreeRTOS";
+	rtos_name = "FreeRTOS";
 #endif
 
 #if ( portSUPPORT_SMP == 1 ) && ( configNUM_CORES == 2 )
-    printf("%s on both cores:\n", rtos_name);
+	printf("%s on both cores:\n", rtos_name);
 #else
-    printf("Starting %s on core 0:\n", rtos_name);
+	printf("Starting %s on core 0:\n", rtos_name);
 #endif
 
-    vLaunch();
+	vLaunch();
 
-
-    return 0;
+	return 0;
 }

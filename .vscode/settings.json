@@ -1,0 +1,32 @@
+{
+  "cmake.generator": "MSYS Makefiles",
+  "cmake.configureOnOpen": false,
+  "cmake.statusbar.advanced": {
+    "debug": {
+      "visibility": "hidden"
+    },
+    "launch": {
+      "visibility": "hidden"
+    },
+    "build": {
+      "visibility": "hidden"
+    },
+    "buildTarget": {
+      "visibility": "hidden"
+    },
+  },
+  
+  "terminal.integrated.profiles.windows": {
+    "msys mingw64": {
+      "path": "C:/msys64/msys2_shell.cmd",
+      "args": [
+          "-defterm",
+          "-here",
+          "-no-start",
+          "-mingw64"
+      ]
+    }
+  },
+  
+  "cortex-debug.openocdPath.windows": "C:/msys64/home/WRY/workspace_pico/openocd/src/openocd.exe"
+}
