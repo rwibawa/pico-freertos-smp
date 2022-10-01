@@ -92,8 +92,49 @@ Using FREERTOS_KERNEL_PATH from environment ('C:/msys64/home/WRY/workspace_pico/
 -- Build files have been written to: C:/msys64/home/WRY/workspace_pico/pico-freertos-smp/build
 
 $ make -j8
+```
 
-# gdb-server
+## 3. Run debugger `gdb-multiarch`
+
+```sh
+# gdb-server -> openocd on separate shell
 $ cd ~/workspace_pico/openocd
 $ src/openocd.exe -f tcl/interface/picoprobe.cfg -f tcl/target/rp2040.cfg -s tcl
+
+# run gdb on the current directory
+MINGW64 ~/workspace_pico/pico-freertos-smp/build
+$ gdb-multiarch.exe src/BlinkLEDsmp.elf
+(gdb) break main
+Breakpoint 1 at 0x1000033c: file C:/msys64/home/WRY/workspace_pico/pico-freertos-smp/src/main.cpp, line 93.
+(gdb) target remote localhost:3333
+Remote debugging using localhost:3333
+warning: A handler for the OS ABI "Windows" is not built into this configuration
+of GDB.  Attempting to continue with the default armv6s-m settings.
+
+warning: multi-threaded target stopped without sending a thread-id, using first non-exited thread
+Note: automatically using hardware breakpoints for read-only addresses.
+0x100083d4 in prvMinimalIdleTask (pvParameters=<optimized out>) at C:/msys64/home/WRY/workspace_pico/pico-freertos-smp/lib/FreeRTOS-Kernel/tasks.c:4249
+4249                        if( listCURRENT_LIST_LENGTH( &( pxReadyTasksLists[ tskIDLE_PRIORITY ] ) ) > ( UBaseType_t ) configNUM_CORES )
+(gdb) load
+Loading section .boot2, size 0x100 lma 0x10000000
+Loading section .text, size 0x9e30 lma 0x10000100
+Loading section .rodata, size 0x295c lma 0x10009f30
+Loading section .binary_info, size 0x20 lma 0x1000c88c
+Loading section .data, size 0x93c lma 0x1000c8ac
+Start address 0x100001e8, load size 53736
+Transfer rate: 17 KB/sec, 7676 bytes/write.
+(gdb) continue
+Continuing.
+target halted due to debug-request, current mode: Thread 
+xPSR: 0x01000000 pc: 0x00000184 msp: 0x20041f00
+
+Thread 1 hit Breakpoint 1, main () at C:/msys64/home/WRY/workspace_pico/pico-freertos-smp/src/main.cpp:93
+93              const char *rtos_name;
+(gdb) c
+Continuing.
+
+(Ctrl-C to stop)
+(gdb) disconnect
+(gdb) quit
+
 ```
