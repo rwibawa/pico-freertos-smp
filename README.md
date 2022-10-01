@@ -49,4 +49,8 @@ cmake version 3.24.2
 
 $ cmake -G "MSYS Makefiles" -DCMAKE_BUILD_TYPE=Debug ..
 $ make -j8
+
+# gdb-server
+$ cd ~/workspace_pico/openocd
+$ src/openocd.exe -f tcl/interface/picoprobe.cfg -f tcl/target/rp2040.cfg -s tcl
 ```
