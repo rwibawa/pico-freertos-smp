@@ -33,6 +33,26 @@ $ cp $PICO_SDK_PATH/external/pico_sdk_import.cmake ./
 
 # import FreeRTOS-SMP
 $ cp lib/FreeRTOS-Kernel/portable/ThirdParty/GCC/RP2040/FreeRTOS_Kernel_import.cmake ./
+# fix the FREERTOS_KERNEL_RP2040_RELATIVE_PATH
+$ vi lib/FreeRTOS-Kernel/portable/ThirdParty/GCC/RP2040/FreeRTOS_Kernel_import.cmake
+$ diff FreeRTOS_Kernel_import.cmake lib/FreeRTOS-Kernel/portable/ThirdParty/GCC/RP2040/FreeRTOS_Kernel_import.cmake 
+11,13d10
+< else ()
+<       set(FREERTOS_KERNEL_PATH "${CMAKE_CURRENT_LIST_DIR}/lib/FreeRTOS-Kernel")
+<     message("Using local FREERTOS_KERNEL_PATH '${FREERTOS_KERNEL_PATH}')")
+18,19c15
+< # set(FREERTOS_KERNEL_RP2040_BACK_PATH "../../../..")
+<
+---
+> set(FREERTOS_KERNEL_RP2040_BACK_PATH "../../../..")
+66,69c62
+< add_subdirectory(${FREERTOS_KERNEL_PATH}/${FREERTOS_KERNEL_RP2040_RELATIVE_PATH} FREERTOS_KERNEL)
+<
+< #FORCE LIBRARY BUILD
+< include(${FREERTOS_KERNEL_PATH}/${FREERTOS_KERNEL_RP2040_RELATIVE_PATH}/library.cmake)
+---
+> add_subdirectory(${FREERTOS_KERNEL_PATH}/${FREERTOS_KERNEL_RP2040_RELATIVE_PATH} FREERTOS_KERNEL)
+\ No newline at end of file
 ```
 
 ## 2. Build the solution
