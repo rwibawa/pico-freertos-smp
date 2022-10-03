@@ -147,9 +147,6 @@ Continuing.
 Progress on the console:
 ![Progress on the console](img/Progress-on-console.jpg)
 
-Console:
-![Console output](img/Progress-on-console.jpg)
-
 ```sh
 GO
 FreeRTOS SMP on both cores:
