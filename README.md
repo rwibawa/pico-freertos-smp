@@ -138,3 +138,52 @@ Continuing.
 (gdb) quit
 
 ```
+
+## 4. VSCode Debugger
+
+![VSCode Debugger](img/VSCode-debugger01.jpg)
+![VSCode Debugger](img/VSCode-debugger02.jpg)
+
+Progress on the console:
+![Progress on the console](img/Progress-on-console.jpg)
+
+Console:
+![Console output](img/Progress-on-console.jpg)
+
+```sh
+GO
+FreeRTOS SMP on both cores:
+Main task started
+BlBlink SCount Starteinktet
+t
+
+Main on Coreunt
+               r on Core 1
+Counter on Core 1
+Counter on Core 1
+Blink 1 on Core 1
+Blink 0 on Core 0
+Counter on Core 1
+Counter on Core 1
+Blink 1 on Core 1
+Blink 0 on Core 0
+Counter on Core 1
+Counter on Core 1
+Blink 1 on Core 1
+Blink 0 on Core 0
+Main on Core 1
+Counter on Core 1
+Counter on Core 1
+Blink 1 on Core 1
+Blink 0 on Core 0
+Counter on Core 1
+Counter on Core 1
+Blink 1 on Core 1
+Blink 0 on Core 0
+Counter on Core 1
+Counter on Core 1
+Blink 1 on Core 1
+Blink 0 on Core 0
+Counter on Core 1
+Main on Core 1
+```

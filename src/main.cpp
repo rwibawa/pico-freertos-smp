@@ -29,7 +29,7 @@
 #define LED2_PAD	19
 #define LED3_PAD	20
 #define LED4_PAD	21
-#define LED5_PAD	15
+#define LED5_PAD	16
 
 
 /***
