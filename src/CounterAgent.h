@@ -74,7 +74,6 @@ protected:
 	 */
 	virtual void init();
 
-
 	/***
 	 * Set the LEDs to the mask in count
 	 * @param count

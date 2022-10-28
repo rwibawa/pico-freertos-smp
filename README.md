@@ -67,6 +67,8 @@ $ cd build/
 $ cmake --version
 cmake version 3.24.2
 
+# Refer to the correct FreeRTOS kernel
+$ export FREERTOS_KERNEL_PATH=C:/msys64/home/WRY/workspace_pico/pico-freertos-smp/lib/FreeRTOS-Kernel
 $ cmake -G "MSYS Makefiles" -DCMAKE_BUILD_TYPE=Debug ..
 Using PICO_SDK_PATH from environment ('C:/msys64/home/WRY/workspace_pico/pico-sdk')
 PICO_SDK_PATH is C:/msys64/home/WRY/workspace_pico/pico-sdk

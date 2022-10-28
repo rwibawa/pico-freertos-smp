@@ -40,7 +40,6 @@ CounterAgent::CounterAgent(uint8_t gp1, uint8_t gp2, uint8_t gp3, uint8_t gp4) {
 	}
 }
 
-
 /***
  * Destructor
  */
@@ -60,7 +59,6 @@ void CounterAgent::init() {
 		gpio_put(pLedPads[i], 0);
 	}
 }
-
 
 /***
   * Main Run Task for agent

@@ -35,15 +35,13 @@ void Agent::stop() {
 	}
 }
 
-
 /***
 * Get high water for stack
 * @return close to zero means overflow risk
 */
-unsigned int Agent::getStakHighWater() {
+unsigned int Agent::getStackHighWater() {
 	return (xHandle != NULL) ? uxTaskGetStackHighWaterMark(xHandle) : 0;
 }
-
 
 /***
 * Get the FreeRTOS task being used
@@ -52,7 +50,6 @@ unsigned int Agent::getStakHighWater() {
 TaskHandle_t Agent::getTask() {
 	return xHandle;
 }
-
 
 /***
  * Start the task
@@ -72,7 +69,7 @@ bool Agent::start(const char *name, UBaseType_t priority) {
 	res = xTaskCreate(
 		Agent::vTask,       /* Function that implements the task. */
 		pName,   						/* Text name for the task. */
-		getMaxStackSize(),             /* Stack size in words, not bytes. */
+		getMaxStackSize(),	/* Stack size in words, not bytes. */
 		( void * ) this,		/* Parameter passed into the task. */
 		priority,						/* Priority at which the task is created. */
 		&xHandle
@@ -80,7 +77,6 @@ bool Agent::start(const char *name, UBaseType_t priority) {
 
 	return (res == pdPASS);
 }
-
 
 /***
  * Internal function used by FreeRTOS to run the task

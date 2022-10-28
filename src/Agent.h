@@ -48,7 +48,7 @@ public:
 	 * Get high water for stack
 	 * @return close to zero means overflow risk
 	 */
-	virtual unsigned int getStakHighWater();
+	virtual unsigned int getStackHighWater();
 
 	/***
 	 * Get the FreeRTOS task being used
@@ -80,9 +80,10 @@ protected:
 	 */
 	virtual configSTACK_DEPTH_TYPE getMaxStackSize()=0;
 
-	//The task
+	//The task handle
 	TaskHandle_t xHandle = NULL;
 
+	//The task name
 	char pName[MAX_NAME_LEN];
 
 };
