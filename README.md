@@ -3,7 +3,7 @@
 FreeRTOS Kernel SMP for the Raspberry Pi Pico.
 
 * [Video Tutorial](https://youtu.be/nD8XeWjn-2w)
-* [sample code from prof. Jon Durrant](https://github.com/jondurrant/RPIPicoFreeRTOSSMPExp)
+* [sample code from Dr. Jon Durrant](https://github.com/jondurrant/RPIPicoFreeRTOSSMPExp)
 * [FreeRTOS SMP Docs](https://www.freertos.org/symmetric-multiprocessing-introduction.html)
 
 ## 1. Setup
