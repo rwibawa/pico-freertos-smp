@@ -10,8 +10,8 @@
 #include "stdio.h"
 
 
-//Blink Delay
-#define DELAY			500
+// Blink Delay
+#define DELAY	500
 
 /***
  * Constructor
@@ -29,15 +29,14 @@ BlinkAgent::~BlinkAgent() {
 }
 
 
- /***
-  * Main Run Task for agent
-  */
- void BlinkAgent::run(){
-
-	printf("Blink Started\n");
+/***
+ * Main Run Task for agent
+ */
+void BlinkAgent::run()
+{
+	printf("Blink Started on GPIO %d\n", xLedPad);
 
 	gpio_init(xLedPad);
-
 	gpio_set_dir(xLedPad, GPIO_OUT);
 
 	while (true) { // Loop forever
@@ -48,13 +47,13 @@ BlinkAgent::~BlinkAgent() {
 
 		printf("%s on Core %d\n", pName, getCore());
 	}
-
- }
+}
 
 /***
  * Get the static depth required in words
  * @return - words
  */
-configSTACK_DEPTH_TYPE BlinkAgent::getMaxStackSize(){
+configSTACK_DEPTH_TYPE BlinkAgent::getMaxStackSize()
+{
 	return 150;
 }

@@ -80,10 +80,10 @@ protected:
 	 */
 	virtual configSTACK_DEPTH_TYPE getMaxStackSize()=0;
 
-	//The task handle
+	// The task handle
 	TaskHandle_t xHandle = NULL;
 
-	//The task name
+	// The task name
 	char pName[MAX_NAME_LEN];
 
 };

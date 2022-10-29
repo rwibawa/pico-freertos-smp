@@ -45,7 +45,7 @@ protected:
 	 */
 	virtual configSTACK_DEPTH_TYPE getMaxStackSize();
 
-	//GPIO PAD for LED
+	// GPIO PAD for LED
 	uint8_t xLedPad = 0;
 
 };

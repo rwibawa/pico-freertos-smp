@@ -20,16 +20,18 @@
 #include "CounterAgent.h"
 
 
-//Standard Task priority
+// Standard Task priority
 #define TASK_PRIORITY ( tskIDLE_PRIORITY + 1UL )
 
-//LED PAD to use
-#define LED_PAD		15
-#define LED1_PAD	18
-#define LED2_PAD	19
-#define LED3_PAD	20
-#define LED4_PAD	21
-#define LED5_PAD	16
+// GPIOs to use for blinking the LEDs
+#define LED_BLINK_0	15
+#define LED_BLINK_1	16
+
+// GPIOs to use for the counter
+#define LED1	18
+#define LED2	19
+#define LED3	20
+#define LED4	21
 
 
 /***
@@ -37,9 +39,9 @@
  * @param params - unused
  */
 void mainTask(void *params) {
-	BlinkAgent blink(LED_PAD);
-	BlinkAgent blink1(LED5_PAD);
-	CounterAgent counter(LED1_PAD, LED2_PAD, LED3_PAD, LED4_PAD);
+	BlinkAgent blink{LED_BLINK_0};
+	BlinkAgent blink1{LED_BLINK_1};
+	CounterAgent counter{LED1, LED2, LED3, LED4};
 
 	printf("Main task started\n");
 
@@ -47,19 +49,19 @@ void mainTask(void *params) {
 	blink1.start("Blink 1", TASK_PRIORITY);
 	counter.start("Counter", TASK_PRIORITY);
 
-	//Bind to CORE 1
+	// Bind to CORE 1
 	UBaseType_t coreMask = 0x2;
 	vTaskCoreAffinitySet( blink1.getTask(), coreMask );
 	vTaskCoreAffinitySet( counter.getTask(), coreMask );
 
-	//Bind to CORE 0
+	// Bind to CORE 0
 	coreMask = 0x1;
 	vTaskCoreAffinitySet( blink.getTask(), coreMask );
 
 	while (true) { // Loop forever
-		printf("Main on Core %ld\n",sio_hw->cpuid);
+		printf("Main on Core %ld\n", sio_hw->cpuid);
 
-		uint8_t r = rand()&0xF;
+		uint8_t r = rand() &0xF;
 		counter.on(r);
 		vTaskDelay(3000);
 	}
@@ -68,7 +70,8 @@ void mainTask(void *params) {
 /***
  * Launch the tasks and scheduler
  */
-void vLaunch( void) {
+void vLaunch() 
+{
 	//Start blink task
 	TaskHandle_t task;
 	xTaskCreate(mainTask, "MainThread", 500, NULL, TASK_PRIORITY, &task);
@@ -81,7 +84,7 @@ void vLaunch( void) {
  * Main
  * @return
  */
-int main( void )
+int main()
 {
 	//Setup serial over USB and give a few seconds to settle before we start
 	stdio_init_all();

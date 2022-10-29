@@ -78,12 +78,12 @@ protected:
 	 * Set the LEDs to the mask in count
 	 * @param count
 	 */
-	virtual void setLeds(uint8_t count);
+	virtual void setLEDs(uint8_t count);
 
-	//GPIO PAD for LED
+	// GPIO PAD for LED
 	uint8_t pLedPads[COUNT_LEDS];
 
-	//Queue of commands
+	// Queue of commands
 	QueueHandle_t xCmdQ;
 
 };

@@ -9,7 +9,11 @@
 #include "stdio.h"
 
 //Local enumerator of the actions to be queued
-enum CounterAction {CounterOff, CounterOn, CounterBlink};
+enum CounterAction {
+	CounterOff, 
+	CounterOn, 
+	CounterBlink
+};
 
 //Queue cmd structure
 struct CounterCmd {
@@ -35,7 +39,7 @@ CounterAgent::CounterAgent(uint8_t gp1, uint8_t gp2, uint8_t gp3, uint8_t gp4) {
 	pLedPads[3] = gp4;
 
 	xCmdQ = xQueueCreate( COUNT_QUEUE_LEN, sizeof(CounterCmd));
-	if (xCmdQ == NULL){
+	if (xCmdQ == NULL) {
 		printf("ERROR: Unable to create Queue\n");
 	}
 }
@@ -50,7 +54,7 @@ CounterAgent::~CounterAgent() {
 }
 
 /***
- * Initialise the LEDs
+ * Initialize the LEDs
  */
 void CounterAgent::init() {
 	for (int i = 0 ; i < COUNT_LEDS; i++) {
@@ -61,9 +65,10 @@ void CounterAgent::init() {
 }
 
 /***
-  * Main Run Task for agent
-  */
- void CounterAgent::run() {
+ * Main Run Task for agent
+ */
+void CounterAgent::run() 
+{
 	BaseType_t res;
 	printf("Count Started\n");
 	init();
@@ -71,10 +76,10 @@ void CounterAgent::init() {
 	CounterAction action = CounterOff;
 	uint8_t count = 0;
 	bool blinkOn = false;
-	CounterCmdT cmd;
+	CounterCmdT cmd{};
 	bool change;
 
-	if (xCmdQ == NULL){
+	if (xCmdQ == NULL) {
 		return;
 	}
 
@@ -90,23 +95,27 @@ void CounterAgent::init() {
 		}
 
 		switch(action) {
-		case CounterOff:
-			if (change){
-				setLeds(0);
-			}
-			break;
-		case CounterOn:
-			if (change){
-				setLeds(count);
-			}
-			break;
-		case CounterBlink:
-			blinkOn = ! blinkOn;
-			if (blinkOn){
-				setLeds(count);
-			} else {
-				setLeds(0);
-			}
+			case CounterOff:
+				if (change) {
+					setLEDs(0);
+				}
+				
+				break;
+			
+			case CounterOn:
+				if (change) {
+					setLEDs(count);
+				}
+				
+				break;
+
+			case CounterBlink:
+				blinkOn = !blinkOn;
+				if (blinkOn) {
+					setLEDs(count);
+				} else {
+					setLEDs(0);
+				}
 		}
 	}
 
@@ -116,7 +125,8 @@ void CounterAgent::init() {
  * Get the static depth required in words
  * @return - words
  */
-configSTACK_DEPTH_TYPE CounterAgent::getMaxStackSize() {
+configSTACK_DEPTH_TYPE CounterAgent::getMaxStackSize() 
+{
 	return 150;
 }
 
@@ -125,10 +135,11 @@ configSTACK_DEPTH_TYPE CounterAgent::getMaxStackSize() {
  * Set the LEDs to the mask in count
  * @param count
  */
-void CounterAgent::setLeds(uint8_t count) {
-	for (int i = 0; i < COUNT_LEDS; i ++){
+void CounterAgent::setLEDs(uint8_t count) 
+{
+	for (int i = 0; i < COUNT_LEDS; i ++) {
 		uint8_t m = 1 << i;
-		if ( (count & m) > 0){
+		if ((count & m) > 0){
 			gpio_put(pLedPads[i], 1);
 		} else {
 			gpio_put(pLedPads[i], 0);
@@ -140,7 +151,8 @@ void CounterAgent::setLeds(uint8_t count) {
  * Turn LEDs on and display count
  * @param count - between 0 and 0xF
  */
-void CounterAgent::on(uint8_t count) {
+void CounterAgent::on(uint8_t count) 
+{
 	BaseType_t res;
 
 	CounterCmdT cmd;
@@ -158,7 +170,8 @@ void CounterAgent::on(uint8_t count) {
 /***
  * Turn LEDs off
  */
-void CounterAgent::off() {
+void CounterAgent::off() 
+{
 	BaseType_t res;
 
 	CounterCmdT cmd;
@@ -178,7 +191,8 @@ void CounterAgent::off() {
  * Blink LEDs with displayed count
  * @param count - between 0 and 0x0F
  */
-void CounterAgent::blink(uint8_t count) {
+void CounterAgent::blink(uint8_t count) 
+{
 	BaseType_t res;
 
 	CounterCmdT cmd;

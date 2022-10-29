@@ -13,14 +13,16 @@
 /***
  * Constructor
  */
-Agent::Agent() {
+Agent::Agent() 
+{
 	// NOP
 }
 
 /***
  * Destructor
  */
-Agent::~Agent() {
+Agent::~Agent() 
+{
 	stop();
 }
 
@@ -28,7 +30,8 @@ Agent::~Agent() {
  * Stop task
  * @return
  */
-void Agent::stop() {
+void Agent::stop() 
+{
 	if (xHandle != NULL) {
 		vTaskDelete(  xHandle );
 		xHandle = NULL;
@@ -39,7 +42,8 @@ void Agent::stop() {
 * Get high water for stack
 * @return close to zero means overflow risk
 */
-unsigned int Agent::getStackHighWater() {
+unsigned int Agent::getStackHighWater() 
+{
 	return (xHandle != NULL) ? uxTaskGetStackHighWaterMark(xHandle) : 0;
 }
 
@@ -47,7 +51,8 @@ unsigned int Agent::getStackHighWater() {
 * Get the FreeRTOS task being used
 * @return
 */
-TaskHandle_t Agent::getTask() {
+TaskHandle_t Agent::getTask() 
+{
 	return xHandle;
 }
 
@@ -56,7 +61,8 @@ TaskHandle_t Agent::getTask() {
  * @param priority - Priority to apply to process
  * @return
  */
-bool Agent::start(const char *name, UBaseType_t priority) {
+bool Agent::start(const char *name, UBaseType_t priority) 
+{
 	BaseType_t res;
 
 	if (strlen(name) >= MAX_NAME_LEN){
@@ -82,17 +88,19 @@ bool Agent::start(const char *name, UBaseType_t priority) {
  * Internal function used by FreeRTOS to run the task
  * @param pvParameters
  */
- void Agent::vTask( void * pvParameters ) {
-	 Agent *task = (Agent *) pvParameters;
-	 if (task != NULL) {
-		 task->run();
-	 }
- }
+void Agent::vTask( void * pvParameters ) 
+{
+	Agent *task = (Agent *) pvParameters;
+	if (task != NULL) {
+		task->run();
+	}
+}
 
 /***
 * Return core that code is running on
 * @return 0 or 1
 */
-uint8_t Agent::getCore(){
+uint8_t Agent::getCore()
+{
 	return (uint8_t)sio_hw->cpuid;
 }

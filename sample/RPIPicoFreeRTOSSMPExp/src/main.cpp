@@ -39,7 +39,7 @@
  * @param params - unused
  */
 void mainTask(void *params){
-	BlinkAgent blink(LED_PAD);
+	BlinkAgent blink(LED_BLINK_0);
 	BlinkAgent blink1(LED5_PAD);
 	CounterAgent counter(LED1_PAD, LED2_PAD, LED3_PAD, LED4_PAD);
 
